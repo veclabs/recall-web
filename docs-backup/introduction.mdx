@@ -1,0 +1,135 @@
+---
+title: Introduction
+description: VecLabs makes Recall - the complete memory layer for AI agents.
+---
+
+# Welcome to VecLabs
+
+VecLabs makes Recall - the complete memory layer for AI agents.
+
+Two packages. @veclabs/solvec stores, encrypts, and verifies agent memory.
+@veclabs/recall retrieves and assembles structured context. (Phase 7)
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="bolt" href="/quickstart">
+    Get your first vector stored and queried in under 5 minutes.
+  </Card>
+  <Card
+    title="What is a Vector Database?"
+    icon="database"
+    href="/concepts/what-is-a-vector-database"
+  >
+    New to vector databases? Start here.
+  </Card>
+  <Card
+    title="Why VecLabs?"
+    icon="shield-check"
+    href="/why-veclabs/decentralization"
+  >
+    Understand what makes VecLabs different from Pinecone, Qdrant, and Weaviate.
+  </Card>
+  <Card title="Use Cases" icon="lightbulb" href="/use-cases/agent-memory">
+    See what you can build with VecLabs.
+  </Card>
+</CardGroup>
+
+---
+
+## What makes VecLabs different
+
+<CardGroup cols={3}>
+  <Card title="Speed" icon="gauge">
+    **4.7ms p99** at 100K vectors, 1536 dimensions. Rust HNSW in-process - no
+    network round-trip, no garbage collector.
+  </Card>
+  <Card title="Privacy" icon="lock">
+    Vectors are encrypted with **AES-256-GCM** before leaving the SDK. VecLabs
+    cannot read your data.
+  </Card>
+  <Card title="Verifiability" icon="link">
+    After every write, a cryptographic fingerprint is recorded. Anyone can
+    verify your data has not been tampered with.
+  </Card>
+</CardGroup>
+
+---
+
+## Install
+
+Get your API key at [app.veclabs.xyz](https://app.veclabs.xyz/register), then:
+
+<CodeGroup>
+```bash TypeScript
+npm install @veclabs/solvec
+```
+
+```bash Python
+pip install solvec --pre
+```
+
+</CodeGroup>
+
+---
+
+## Your first query in 30 seconds
+
+<CodeGroup>
+```typescript TypeScript
+import { SolVec } from '@veclabs/solvec';
+
+const sv = new SolVec({ apiKey: 'vl_live_...' });
+const collection = sv.collection('my-collection', { dimensions: 1536 });
+
+await collection.upsert([{
+id: 'doc_001',
+values: Array(1536).fill(0).map(() => Math.random()),
+metadata: { text: 'Hello from VecLabs' }
+}]);
+
+const results = await collection.query({
+vector: Array(1536).fill(0).map(() => Math.random()),
+topK: 5
+});
+
+console.log(results);
+
+````
+
+```python Python
+from solvec import SolVec
+
+sv = SolVec(api_key="vl_live_...")
+collection = sv.collection("my-collection", dimensions=1536)
+
+collection.upsert([{
+    "id": "doc_001",
+    "values": [0.1] * 1536,
+    "metadata": {"text": "Hello from VecLabs"}
+}])
+
+results = collection.query(vector=[0.1] * 1536, top_k=5)
+print(results)
+````
+
+</CodeGroup>
+
+---
+
+## Current status
+
+| Component                           | Status                          |
+| ----------------------------------- | ------------------------------- |
+| Rust HNSW core                      | Complete - 57 tests, 4.7ms p99  |
+| Solana Anchor program               | Live on devnet                  |
+| WASM bridge                         | Complete                        |
+| AES-256-GCM encryption              | Complete                        |
+| Shadow Drive                        | Complete                        |
+| Memory Inspector                    | Complete - Phase 6              |
+| Hosted API (api.veclabs.xyz)        | Complete - Phase 8              |
+| Developer Dashboard (app.veclabs.xyz) | Complete - Phase 8            |
+| Context Retrieval (@veclabs/recall) | Planned - Phase 7               |
+
+<Note>
+  Phases 1–6 and Phase 8 are complete and stable.
+  @veclabs/recall (Phase 7) is in development.
+</Note>

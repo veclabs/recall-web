@@ -1,0 +1,78 @@
+---
+title: "Security Model"
+description: "How Recall encrypts your data and what VecLabs can and cannot see."
+---
+
+## The short version
+
+Your vectors are encrypted with AES-256-GCM before they leave your machine. The encryption key is derived from your Solana wallet keypair. VecLabs cannot read your data.
+
+The Merkle root posted to Solana proves **what exists** in your collection — not **what it contains**. The on-chain fingerprint is public. The vectors themselves are not.
+
+---
+
+## Key derivation
+
+When you register, Recall generates a Solana keypair for your account. This keypair is used to derive your AES-256-GCM encryption key via PBKDF2-HMAC-SHA256:
+
+```
+Solana keypair seed (32 bytes)
+      ↓ PBKDF2-HMAC-SHA256 (100,000 iterations, salt: "solvec-v1")
+AES-256-GCM key (32 bytes)
+      ↓
+Encrypts your vectors before storage
+```
+
+This derivation is identical in the Rust core (`solvec-core/src/encryption.rs`), the TypeScript SDK, and the Python SDK. Cross-language verification passes because the domain separator and iteration count are hardcoded and auditable.
+
+---
+
+## What VecLabs can see
+
+| Data             | Visible to VecLabs?                  |
+| ---------------- | ------------------------------------ |
+| Vector values    | ❌ No — AES-256-GCM encrypted        |
+| Metadata values  | ❌ No — encrypted with vectors       |
+| Vector IDs       | ✅ Yes — used for Merkle leaf hashes |
+| Collection names | ✅ Yes                               |
+| Usage counts     | ✅ Yes                               |
+| Merkle roots     | ✅ Yes — public on Solana            |
+
+VecLabs can see that you have a collection called `agent-memory` with 42 vectors. VecLabs cannot see what those vectors contain or what metadata is attached to them.
+
+---
+
+## Custodial model (current)
+
+In the current hosted API, Recall generates and stores your Solana keypair server-side, encrypted with a server-managed key. This means:
+
+- VecLabs holds the master encryption key
+- If our servers are compromised, your keypair could theoretically be exposed
+
+**BYOK (Bring Your Own Key) is on the roadmap.** In BYOK mode, you connect your own Solana wallet (Phantom, Backpack, etc.), sign a message client-side to derive the AES key, and we never see your private key. This makes Recall fully non-custodial.
+
+The self-hosted SDK with your own wallet is already non-custodial today.
+
+---
+
+## Merkle proof construction
+
+After every write, Recall computes a SHA-256 Merkle tree from all vector IDs in the collection:
+
+```
+Leaf: SHA-256("leaf:" || vector_id)
+Node: SHA-256("node:" || left_child || right_child)
+Root: 32-byte hex string posted to Solana
+```
+
+Domain separators (`"leaf:"`, `"node:"`) prevent second-preimage attacks. The computation is identical in Rust, TypeScript, and Python — verified by cross-language test suite.
+
+The root is posted to the Solana Anchor program at `8xjQ2XrdhR4JkGAdTEB7i34DBkbrLRkcgchKjN1Vn5nP`. Anyone can fetch it and verify independently.
+
+---
+
+## Storage
+
+**Free tier** — vectors stored in Redis with 7-day TTL. If Redis evicts them, they are gone. No permanent storage.
+
+**Pro and above** — vectors encrypted and uploaded to Arweave via Irys. Pay-once permanent storage. Even if VecLabs shuts down, your encrypted data remains on Arweave forever. You can decrypt it with your keypair.

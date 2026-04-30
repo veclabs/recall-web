@@ -1,0 +1,216 @@
+---
+title: "API Reference"
+description: "Complete reference for the Recall REST API and SDKs."
+---
+
+## Base URL
+
+```
+https://api.veclabs.xyz/api/v1
+```
+
+All requests require an `Authorization: Bearer YOUR_API_KEY` header.
+
+---
+
+## Collections
+
+### Create a collection
+
+```http
+POST /collections
+```
+
+```json
+{
+  "name": "agent-memory",
+  "dimensions": 1536,
+  "metric": "cosine"
+}
+```
+
+**Metrics:** `cosine` (default), `euclidean`, `dot`
+
+**Response:**
+
+```json
+{
+  "collection": {
+    "id": "uuid",
+    "name": "agent-memory",
+    "dimensions": 1536,
+    "metric": "cosine",
+    "vector_count": 0,
+    "created_at": "2026-04-30T00:00:00Z"
+  }
+}
+```
+
+### List collections
+
+```http
+GET /collections
+```
+
+### Delete a collection
+
+```http
+DELETE /collections/{name}
+```
+
+---
+
+## Vectors
+
+### Upsert
+
+```http
+POST /collections/{name}/upsert
+```
+
+```json
+{
+  "records": [
+    {
+      "id": "mem_001",
+      "values": [0.1, 0.2, ...],
+      "metadata": { "text": "User prefers dark mode" }
+    }
+  ]
+}
+```
+
+**Response:**
+
+```json
+{
+  "upsertedCount": 1,
+  "merkleRoot": "90d483c77c4e...",
+  "solanaProgram": "8xjQ2XrdhR4JkGAdTEB7i34DBkbrLRkcgchKjN1Vn5nP",
+  "solanaTx": "42sxn4j...",
+  "solanaExplorerUrl": "https://explorer.solana.com/tx/42sxn4j...?cluster=devnet"
+}
+```
+
+`solanaTx` and `solanaExplorerUrl` are `null` on the Free tier.
+
+### Query
+
+```http
+POST /collections/{name}/query
+```
+
+```json
+{
+  "vector": [0.1, 0.2, ...],
+  "topK": 10,
+  "includeValues": false,
+  "filter": {}
+}
+```
+
+**Response:**
+
+```json
+{
+  "matches": [
+    {
+      "id": "mem_001",
+      "score": 0.97,
+      "metadata": { "text": "User prefers dark mode" }
+    }
+  ]
+}
+```
+
+### Delete vectors
+
+```http
+POST /collections/{name}/delete
+```
+
+```json
+{
+  "ids": ["mem_001", "mem_002"]
+}
+```
+
+### Fetch vectors by ID
+
+```http
+POST /collections/{name}/fetch
+```
+
+```json
+{
+  "ids": ["mem_001"]
+}
+```
+
+### Verify collection integrity
+
+```http
+GET /collections/{name}/verify
+```
+
+Fetches the on-chain Merkle root from Solana and computes it locally. Returns a match/mismatch result with a Solana Explorer URL.
+
+**Response:**
+
+```json
+{
+  "verified": true,
+  "onChainRoot": "90d483c...",
+  "computedRoot": "90d483c...",
+  "match": true,
+  "vectorCount": 42,
+  "solanaExplorerUrl": "https://explorer.solana.com/address/...?cluster=devnet"
+}
+```
+
+---
+
+## Usage
+
+```http
+GET /usage
+```
+
+Returns current month write, query, and vector counts against your plan limits.
+
+---
+
+## API Keys
+
+### List keys
+
+```http
+GET /keys
+```
+
+### Create a key
+
+```http
+POST /keys
+```
+
+```json
+{ "name": "Production" }
+```
+
+### Revoke a key
+
+```http
+DELETE /keys/{id}
+```
+
+---
+
+## Error codes
+
+| Code | Meaning                                                 |
+| ---- | ------------------------------------------------------- |
+| 401  | Invalid or missing API key                              |
+| 404  | Collection not found                                    |
+| 429  | Plan limit reached — upgrade at app.veclabs.xyz/pricing |
+| 500  | Internal error — check status.veclabs.xyz               |

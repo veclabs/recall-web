@@ -1,142 +1,60 @@
 ---
-title: Roadmap
-description: What's built, what's in progress, and what's coming next for VecLabs.
+title: "Pricing"
+description: "What each plan includes and how limits work."
 ---
 
-# Roadmap
+## Plans
 
-VecLabs is in active development. This page reflects current status and planned work. We update it as things ship.
-
----
-
-## Shipped
-
-**Rust HNSW Core**
-
-- Full HNSW graph implementation in Rust
-- Cosine, euclidean, and dot product distance metrics
-- Insert, delete, update, and query operations
-- Serialization for index persistence
-- 31 unit tests, Criterion.rs benchmarks
-- 4.7ms p99 at 100K vectors, 1536 dimensions
-
-**AES-256-GCM Encryption**
-
-- Client-side vector encryption before storage
-- Key derived from Solana wallet keypair
-- Authenticated encryption - tamper detection built in
-
-**Merkle Tree + Proof Generation**
-
-- SHA-256 Merkle tree over all vector IDs
-- Proof generation and verification
-- Incremental root updates on write
-
-**Solana Anchor Program**
-
-- Program deployed on Solana devnet
-- On-chain Merkle root storage per collection
-- 6/6 integration tests passing
-- Program ID: `8xjQ2XrdhR4JkGAdTEB7i34DBkbrLRkcgchKjN1Vn5nP`
-
-**TypeScript SDK**
-
-- Published to npm as `@veclabs/solvec`
-- Full client, collection, upsert, query, verify API
-- TypeScript types included
-
-**Python SDK**
-
-- Published to PyPI as `solvec`
-- Matches TypeScript API surface
-- Works with Python 3.10+
-
-**Agent Memory Demo**
-
-- Live at [demo.veclabs.xyz](https://demo.veclabs.xyz)
-
-**Phase 3 - WASM Bridge**
-
-- Rust HNSW core compiled to WebAssembly via wasm-pack
-- 3-way runtime loading: browser fallback / Vercel production / local Node.js
-- Turbopack-compatible path resolution
-- TypeScript SDK runs real Rust
-
-**Phase 4 - AES-256-GCM Encrypted Disk Persistence**
-
-- Client-side encryption before disk write
-- Key derived from VECLABS_PERSIST_KEY via SHA-256
-- Encrypted .db files in .veclabs/ directory
-- Graceful wrong-key failure - initializes empty, does not crash
-- 26/26 tests
-
-**Phase 5 - Decentralized Storage**
-
-- Automatic upload after every persist() call
-- Fire-and-forget - never blocks upsert()
-- restoreFromShadowDrive() for cold starts
-- available flag gates operations silently on failure
-- 26/26 tests
-
-**Memory Inspector (Phase 6)**
-
-- `MemoryInspector` class via `collection.inspector()`
-- `stats()`, `inspect()`, `get()`, `searchWithRecords()`, `merkleHistory()`, `verify()`
-- Inspector UI web component (`@veclabs/inspector-ui`)
-- Live Agent Memory Playground at [demo.veclabs.xyz](https://demo.veclabs.xyz)
-- 57 Rust tests + 37 TypeScript tests + 48 Python tests
-
-**Phase 8 - Hosted API + Stripe Billing**
-
-- REST API at `api.veclabs.xyz`
-- API key authentication (`vl_live_` prefix, SHA-256 hashed in database)
-- VecLabs-managed Solana wallet and Shadow Drive per account
-- Stripe billing - Free ($0), Pro ($25/mo), Business ($199/mo), Enterprise (contact us)
-- Developer dashboard at [app.veclabs.xyz](https://app.veclabs.xyz)
-- GitHub OAuth + email/password authentication
-- Usage tracking per account per month
-- Supabase backend with RLS policies
+|                        | Free | Pro    | Business  | Enterprise |
+| ---------------------- | ---- | ------ | --------- | ---------- |
+| Price                  | $0   | $25/mo | $199/mo   | Contact us |
+| Vectors                | 5K   | 500K   | 5M        | Unlimited  |
+| Writes/mo              | 1K   | 50K    | 500K      | Unlimited  |
+| Queries/mo             | 10K  | 500K   | 5M        | Unlimited  |
+| Collections            | 2    | 25     | Unlimited | Unlimited  |
+| API keys               | 1    | 5      | Unlimited | Unlimited  |
+| Irys permanent storage | ❌   | ✅     | ✅        | ✅         |
+| Merkle root → Solana   | ❌   | ✅     | ✅        | ✅         |
+| Team keys + RBAC       | ❌   | ❌     | ✅        | ✅         |
+| SLA                    | ❌   | ❌     | ✅        | ✅         |
 
 ---
 
-## In Progress
+## What you're paying for
 
-**LangChain Integration**
+The Rust HNSW core is open source (Apache-2.0). You're not paying for the algorithm.
 
-- Official VecLabs vectorstore for LangChain Python and TypeScript
-- Drop-in replacement for Pinecone and Chroma in LangChain chains
+On **Pro and above**, you're paying for:
 
----
+- **Irys permanent storage** — encrypted vectors stored forever on Arweave. One-time cost per write, never expires.
+- **Solana Anchor gas** — ~$0.00025 per Merkle root post. Negligible.
+- **Managed Redis cache** — low-latency reads without cold starts.
+- **Hosted API infrastructure** — Vercel serverless, Supabase, monitoring.
 
-## Planned
-
-**@veclabs/recall Package**
-
-- Separate npm package
-- Memory Inspector: full operation audit log
-- Context Retrieval: five strategies (persistent, recent, relevant, novel, conflicts)
-- Token-budget-aware context assembly
-- Every getContext() call logged for audit
-
-**Mainnet Deployment**
-
-- Migrate Anchor program from devnet to Solana mainnet
-
-**Metadata Filtering**
-
-- Filter query results by metadata fields at search time
-
-**Hybrid Search**
-
-- Combine vector search with BM25 keyword search
-
-**REST API**
-
-- HTTP API for language-agnostic access
-- OpenAPI spec and generated SDKs
+On **Free**, you get Redis-backed vector search. Fast, ephemeral. Vectors expire after 7 days of inactivity.
 
 ---
 
-## Request a feature
+## How limits work
 
-Open an issue on [GitHub](https://github.com/veclabs/veclabs/issues).
+Limits reset on the 1st of each month. Write and query counts are tracked per calendar month. Vector count is the total stored at any time.
+
+When you hit a limit, the API returns:
+
+```json
+{
+  "error": "Monthly write limit reached (1,000 writes). Upgrade your plan at app.veclabs.xyz/pricing"
+}
+```
+
+---
+
+## Upgrading
+
+Go to [app.veclabs.xyz/pricing](https://app.veclabs.xyz/pricing) to upgrade. Billing is handled by Stripe. You can cancel anytime.
+
+---
+
+## Enterprise
+
+Enterprise plans include on-premises deployment, custom Anchor programs, dedicated infrastructure, and compliance support (SOC 2, HIPAA path). Contact [veclabs@outlook.com](mailto:veclabs@outlook.com).

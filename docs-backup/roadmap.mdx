@@ -1,0 +1,142 @@
+---
+title: Roadmap
+description: What's built, what's in progress, and what's coming next for VecLabs.
+---
+
+# Roadmap
+
+VecLabs is in active development. This page reflects current status and planned work. We update it as things ship.
+
+---
+
+## Shipped
+
+**Rust HNSW Core**
+
+- Full HNSW graph implementation in Rust
+- Cosine, euclidean, and dot product distance metrics
+- Insert, delete, update, and query operations
+- Serialization for index persistence
+- 31 unit tests, Criterion.rs benchmarks
+- 4.7ms p99 at 100K vectors, 1536 dimensions
+
+**AES-256-GCM Encryption**
+
+- Client-side vector encryption before storage
+- Key derived from Solana wallet keypair
+- Authenticated encryption - tamper detection built in
+
+**Merkle Tree + Proof Generation**
+
+- SHA-256 Merkle tree over all vector IDs
+- Proof generation and verification
+- Incremental root updates on write
+
+**Solana Anchor Program**
+
+- Program deployed on Solana devnet
+- On-chain Merkle root storage per collection
+- 6/6 integration tests passing
+- Program ID: `8xjQ2XrdhR4JkGAdTEB7i34DBkbrLRkcgchKjN1Vn5nP`
+
+**TypeScript SDK**
+
+- Published to npm as `@veclabs/solvec`
+- Full client, collection, upsert, query, verify API
+- TypeScript types included
+
+**Python SDK**
+
+- Published to PyPI as `solvec`
+- Matches TypeScript API surface
+- Works with Python 3.10+
+
+**Agent Memory Demo**
+
+- Live at [demo.veclabs.xyz](https://demo.veclabs.xyz)
+
+**Phase 3 - WASM Bridge**
+
+- Rust HNSW core compiled to WebAssembly via wasm-pack
+- 3-way runtime loading: browser fallback / Vercel production / local Node.js
+- Turbopack-compatible path resolution
+- TypeScript SDK runs real Rust
+
+**Phase 4 - AES-256-GCM Encrypted Disk Persistence**
+
+- Client-side encryption before disk write
+- Key derived from VECLABS_PERSIST_KEY via SHA-256
+- Encrypted .db files in .veclabs/ directory
+- Graceful wrong-key failure - initializes empty, does not crash
+- 26/26 tests
+
+**Phase 5 - Decentralized Storage**
+
+- Automatic upload after every persist() call
+- Fire-and-forget - never blocks upsert()
+- restoreFromShadowDrive() for cold starts
+- available flag gates operations silently on failure
+- 26/26 tests
+
+**Memory Inspector (Phase 6)**
+
+- `MemoryInspector` class via `collection.inspector()`
+- `stats()`, `inspect()`, `get()`, `searchWithRecords()`, `merkleHistory()`, `verify()`
+- Inspector UI web component (`@veclabs/inspector-ui`)
+- Live Agent Memory Playground at [demo.veclabs.xyz](https://demo.veclabs.xyz)
+- 57 Rust tests + 37 TypeScript tests + 48 Python tests
+
+**Phase 8 - Hosted API + Stripe Billing**
+
+- REST API at `api.veclabs.xyz`
+- API key authentication (`vl_live_` prefix, SHA-256 hashed in database)
+- VecLabs-managed Solana wallet and Shadow Drive per account
+- Stripe billing - Free ($0), Pro ($25/mo), Business ($199/mo), Enterprise (contact us)
+- Developer dashboard at [app.veclabs.xyz](https://app.veclabs.xyz)
+- GitHub OAuth + email/password authentication
+- Usage tracking per account per month
+- Supabase backend with RLS policies
+
+---
+
+## In Progress
+
+**LangChain Integration**
+
+- Official VecLabs vectorstore for LangChain Python and TypeScript
+- Drop-in replacement for Pinecone and Chroma in LangChain chains
+
+---
+
+## Planned
+
+**@veclabs/recall Package**
+
+- Separate npm package
+- Memory Inspector: full operation audit log
+- Context Retrieval: five strategies (persistent, recent, relevant, novel, conflicts)
+- Token-budget-aware context assembly
+- Every getContext() call logged for audit
+
+**Mainnet Deployment**
+
+- Migrate Anchor program from devnet to Solana mainnet
+
+**Metadata Filtering**
+
+- Filter query results by metadata fields at search time
+
+**Hybrid Search**
+
+- Combine vector search with BM25 keyword search
+
+**REST API**
+
+- HTTP API for language-agnostic access
+- OpenAPI spec and generated SDKs
+
+---
+
+## Request a feature
+
+Open an issue on [GitHub](https://github.com/veclabs/veclabs/issues).

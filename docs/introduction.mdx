@@ -1,135 +1,59 @@
 ---
-title: Introduction
-description: VecLabs makes Recall - the complete memory layer for AI agents.
+title: "What is Recall?"
+description: "A Rust-native vector database with cryptographic memory proofs for AI agents."
 ---
 
-# Welcome to VecLabs
+Recall is a vector database built for AI agents that need memory they can prove.
 
-VecLabs makes Recall - the complete memory layer for AI agents.
+Most vector databases store your embeddings on their servers. You trust their uptime, their pricing, and their word that nothing has changed. Recall is built differently.
 
-Two packages. @veclabs/solvec stores, encrypts, and verifies agent memory.
-@veclabs/recall retrieves and assembles structured context. (Phase 7)
+Every write does three things:
 
-<CardGroup cols={2}>
-  <Card title="Quickstart" icon="bolt" href="/quickstart">
-    Get your first vector stored and queried in under 5 minutes.
-  </Card>
-  <Card
-    title="What is a Vector Database?"
-    icon="database"
-    href="/concepts/what-is-a-vector-database"
-  >
-    New to vector databases? Start here.
-  </Card>
-  <Card
-    title="Why VecLabs?"
-    icon="shield-check"
-    href="/why-veclabs/decentralization"
-  >
-    Understand what makes VecLabs different from Pinecone, Qdrant, and Weaviate.
-  </Card>
-  <Card title="Use Cases" icon="lightbulb" href="/use-cases/agent-memory">
-    See what you can build with VecLabs.
-  </Card>
-</CardGroup>
+1. **Encrypts** your vectors with AES-256-GCM using a key derived from your Solana wallet — before they leave your machine
+2. **Persists** the encrypted vectors permanently to Arweave via Irys (Pro and above)
+3. **Anchors** a SHA-256 Merkle root of all vector IDs to a Solana Anchor program — a cryptographic fingerprint of your collection, immutable and publicly verifiable
 
----
+The result: a vector database that is fast, cheap, and verifiable by anyone — without trusting VecLabs.
 
-## What makes VecLabs different
+## Architecture
 
-<CardGroup cols={3}>
-  <Card title="Speed" icon="gauge">
-    **4.7ms p99** at 100K vectors, 1536 dimensions. Rust HNSW in-process - no
-    network round-trip, no garbage collector.
-  </Card>
-  <Card title="Privacy" icon="lock">
-    Vectors are encrypted with **AES-256-GCM** before leaving the SDK. VecLabs
-    cannot read your data.
-  </Card>
-  <Card title="Verifiability" icon="link">
-    After every write, a cryptographic fingerprint is recorded. Anyone can
-    verify your data has not been tampered with.
-  </Card>
-</CardGroup>
-
----
-
-## Install
-
-Get your API key at [app.veclabs.xyz](https://app.veclabs.xyz/register), then:
-
-<CodeGroup>
-```bash TypeScript
-npm install @veclabs/solvec
+```
+Your application
+      ↓
+  Recall SDK
+  (AES-256-GCM encryption, client-side)
+      ↓
+┌─────────────────────────────────────────┐
+│          Recall hosted API              │
+│                                         │
+│  HNSW in memory  →  Redis (hot cache)   │
+│                   →  Irys / Arweave     │
+│                      (permanent store)  │
+└─────────────────────────────────────────┘
+      ↓
+  Solana Anchor Program
+  (32-byte Merkle root, on-chain forever)
 ```
 
-```bash Python
-pip install solvec --pre
-```
+**HNSW** — Rust-native hierarchical navigable small-world graph. Sub-5ms P99 at 100K vectors. No garbage collector, no latency spikes.
 
-</CodeGroup>
+**Redis** — hot read cache. Restores from Irys on cold start. Never the source of truth.
 
----
+**Irys / Arweave** — permanent encrypted storage. Pay once, stored forever. Source of truth for Pro and above.
 
-## Your first query in 30 seconds
+**Solana Anchor program** — after every write, a Merkle root is posted on-chain. Anyone can verify your collection's integrity without trusting VecLabs. Program: `8xjQ2XrdhR4JkGAdTEB7i34DBkbrLRkcgchKjN1Vn5nP`
 
-<CodeGroup>
-```typescript TypeScript
-import { SolVec } from '@veclabs/solvec';
+## Key properties
 
-const sv = new SolVec({ apiKey: 'vl_live_...' });
-const collection = sv.collection('my-collection', { dimensions: 1536 });
+- **Client-side encryption** — keys are derived from your Solana wallet. VecLabs cannot read your data.
+- **Tamper-evident** — the on-chain Merkle root proves what vectors exist and in what state.
+- **Fast** — 4.7ms P99 at 100K vectors on the Rust HNSW core.
+- **Cheap** — $0/mo free tier, $25/mo Pro with permanent storage.
 
-await collection.upsert([{
-id: 'doc_001',
-values: Array(1536).fill(0).map(() => Math.random()),
-metadata: { text: 'Hello from VecLabs' }
-}]);
+## Solana devnet
 
-const results = await collection.query({
-vector: Array(1536).fill(0).map(() => Math.random()),
-topK: 5
-});
+The Anchor program is live on Solana devnet:
 
-console.log(results);
+- Program: [`8xjQ2XrdhR4JkGAdTEB7i34DBkbrLRkcgchKjN1Vn5nP`](https://explorer.solana.com/address/8xjQ2XrdhR4JkGAdTEB7i34DBkbrLRkcgchKjN1Vn5nP?cluster=devnet)
 
-````
-
-```python Python
-from solvec import SolVec
-
-sv = SolVec(api_key="vl_live_...")
-collection = sv.collection("my-collection", dimensions=1536)
-
-collection.upsert([{
-    "id": "doc_001",
-    "values": [0.1] * 1536,
-    "metadata": {"text": "Hello from VecLabs"}
-}])
-
-results = collection.query(vector=[0.1] * 1536, top_k=5)
-print(results)
-````
-
-</CodeGroup>
-
----
-
-## Current status
-
-| Component                           | Status                          |
-| ----------------------------------- | ------------------------------- |
-| Rust HNSW core                      | Complete - 57 tests, 4.7ms p99  |
-| Solana Anchor program               | Live on devnet                  |
-| WASM bridge                         | Complete                        |
-| AES-256-GCM encryption              | Complete                        |
-| Shadow Drive                        | Complete                        |
-| Memory Inspector                    | Complete - Phase 6              |
-| Hosted API (api.veclabs.xyz)        | Complete - Phase 8              |
-| Developer Dashboard (app.veclabs.xyz) | Complete - Phase 8            |
-| Context Retrieval (@veclabs/recall) | Planned - Phase 7               |
-
-<Note>
-  Phases 1–6 and Phase 8 are complete and stable.
-  @veclabs/recall (Phase 7) is in development.
-</Note>
+Mainnet deployment is on the roadmap.

@@ -1,27 +1,26 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "VecLabs",
+  "name": "Recall by VecLabs",
   "logo": {
     "dark": "/logo.svg",
     "light": "/logo.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#2D7A45",
-    "light": "#4CAF72",
-    "dark": "#1A4A2A",
+    "primary": "#D96B3E",
+    "light": "#E88A5F",
+    "dark": "#B05530",
     "background": {
-      "dark": "#000000"
+      "dark": "#0B0A07"
     }
   },
   "topbarLinks": [
-    { "name": "GitHub", "url": "https://github.com/veclabs/veclabs" }
+    { "name": "GitHub", "url": "https://github.com/veclabs/recall" }
   ],
   "topbarCtaButton": {
-    "name": "Get Early Access",
-    "url": "https://veclabs.xyz#waitlist"
+    "name": "Get API Key",
+    "url": "https://app.veclabs.xyz/register"
   },
-  "tabs": [],
   "anchors": [
     {
       "name": "npm",
@@ -36,101 +35,22 @@
     {
       "name": "GitHub",
       "icon": "github",
-      "url": "https://github.com/veclabs/veclabs"
+      "url": "https://github.com/veclabs/recall"
     }
   ],
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart", "concepts", "faq", "memory-inspector", "demo"]
-    },
-    {
-      "group": "Core Concepts",
-      "pages": [
-        "concepts/what-is-a-vector-database",
-        "concepts/embeddings",
-        "concepts/hnsw",
-        "concepts/ann-vs-exact-search",
-        "concepts/distance-metrics",
-        "concepts/choosing-dimensions"
-      ]
-    },
-    {
-      "group": "Why VecLabs",
-      "pages": [
-        "why-veclabs/decentralization",
-        "why-veclabs/on-chain-provenance",
-        "why-veclabs/performance",
-        "why-veclabs/cost",
-        "why-veclabs/comparison"
-      ]
-    },
-    {
-      "group": "Security & Data Privacy",
-      "pages": [
-        "security/overview",
-        "security/encryption",
-        "security/data-storage",
-        "security/wallet-management"
-      ]
-    },
-    {
-      "group": "Use Cases",
-      "pages": [
-        "use-cases/agent-memory",
-        "use-cases/rag",
-        "use-cases/semantic-search",
-        "use-cases/recommendations",
-        "use-cases/document-intelligence"
-      ]
-    },
-    {
-      "group": "TypeScript SDK",
-      "pages": [
-        "typescript/installation",
-        "typescript/client",
-        "typescript/collections",
-        "typescript/upsert",
-        "typescript/query",
-        "typescript/verify",
-        "typescript/shadow-drive",
-        "typescript/reference"
-      ]
-    },
-    {
-      "group": "Python SDK",
-      "pages": [
-        "python/installation",
-        "python/client",
-        "python/collections",
-        "python/upsert",
-        "python/query",
-        "python/verify",
-        "python/reference"
-      ]
-    },
-    {
-      "group": "Guides",
-      "pages": [
-        "guides/migrate-from-pinecone",
-        "guides/agent-memory",
-        "guides/rag-pipeline",
-        "guides/langchain-python",
-        "guides/langchain-typescript",
-        "guides/verifying-merkle-proofs"
-      ]
+      "pages": ["introduction", "quickstart"]
     },
     {
       "group": "Reference",
-      "pages": [
-        "pricing",
-        "roadmap"
-      ]
+      "pages": ["api-reference", "security", "pricing", "roadmap"]
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/veclabs/veclabs",
-    "twitter": "https://twitter.com/veclabss"
+    "github": "https://github.com/veclabs/recall",
+    "twitter": "https://twitter.com/veclabs46369"
   },
   "theme": "prism",
   "modeToggle": { "default": "dark" }
