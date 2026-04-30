@@ -502,8 +502,7 @@ export default function DemoPage() {
               margin: 0,
             }}
           >
-            Memory resets on server restart · Persistent storage via Shadow
-            Drive ships in v0.2
+            Persistent memory via Irys · Merkle-rooted to Solana on every write
           </p>
         </div>
       </div>

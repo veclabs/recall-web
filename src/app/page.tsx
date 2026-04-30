@@ -160,7 +160,7 @@ function SysBar() {
         }}
       >
         <span className="sys-col">VEC-01 / LIVE SPEC</span>
-        <span className="sys-col">BUILD 0.1.0-α.9</span>
+        <span className="sys-col">BUILD 0.1.0-α.10</span>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: INK_DIM }}>
           <span
             style={{
@@ -280,7 +280,7 @@ function Hero() {
             >
               <span style={{ color: INK }}>Recall</span> is a Rust-native
               vector database with cryptographic memory proofs. Every write is
-              client-side encrypted with AES-256-GCM, persisted to Shadow Drive,
+              client-side encrypted with AES-256-GCM, persisted permanently to Irys (Arweave),
               and Merkle-rooted to a Solana Anchor program — so your
               agent&rsquo;s memory is{" "}
               <span style={{ color: INK }}>yours</span>, auditable, and
@@ -522,7 +522,7 @@ function Marquee() {
     <span style={{ display: "inline-flex", alignItems: "center", gap: 48 }}>
       Rust-Native HNSW &nbsp;·&nbsp;{" "}
       <em style={{ color: COPPER, fontStyle: "normal" }}>AES-256-GCM</em>{" "}
-      &nbsp;·&nbsp; Shadow Drive &nbsp;·&nbsp; Solana Anchor &nbsp;·&nbsp;{" "}
+      &nbsp;·&nbsp; Irys · Arweave &nbsp;·&nbsp; Solana Anchor &nbsp;·&nbsp;{" "}
       <em style={{ color: COPPER, fontStyle: "normal" }}>Merkle-Rooted Writes</em>{" "}
       &nbsp;·&nbsp; Client-Side Encryption &nbsp;·&nbsp; Open-Source Core &nbsp;·&nbsp;{" "}
       <em style={{ color: COPPER, fontStyle: "normal" }}>SDKs in TS + Python</em>{" "}
@@ -668,7 +668,7 @@ function Thesis() {
           }}
         >
           Most &ldquo;Web3 memory&rdquo; projects write embeddings onchain —
-          which is slow, expensive, and structurally wrong. Shadow Drive handles
+          which is slow, expensive, and structurally wrong. Irys handles permanent
           storage.{" "}
           <em style={{ fontStyle: "italic", color: COPPER }}>
             The Anchor program handles proof.
@@ -726,7 +726,7 @@ function Architecture() {
   const layers: Array<[string, string, string, string]> = [
     ["01", "HNSW Graph Index", "Rust-native hierarchical navigable small-world graph. In-memory top, disk-paged tail. Billion-scale queries in single-digit ms.", "Speed"],
     ["02", "AES-256-GCM · Client-Side", "Vectors and payloads are encrypted before they leave your process, with keys derived from your Solana keypair. We never see plaintext.", "Encryption"],
-    ["03", "Shadow Drive", "Decentralized object storage on Solana's storage protocol is the source of truth. Redis sits in front as a hot read cache — not the database.", "Storage"],
+    ["03", "Irys · Permanent Storage", "Vectors encrypted and stored permanently on Arweave via Irys — pay once, stored forever. Redis sits in front as a hot read cache — not the database.", "Storage"],
     ["04", "Solana Anchor Program", "Merkle roots of every write batch are committed to an Anchor program. Anyone, anywhere, can verify memory integrity with a signature.", "Trust"],
   ];
 
@@ -1004,7 +1004,7 @@ function SdkSection() {
               <em style={{ fontStyle: "italic", color: COPPER }}>verify</em>.
             </>
           }
-          sub="Install, configure with your wallet, write. Shadow Drive persistence and Anchor proofs happen in the background. Python and TypeScript are feature-complete and behaviorally identical."
+sub="Install, configure with your wallet, write. Irys permanent storage and Anchor proofs happen in the background."
         />
 
         <div
@@ -1117,7 +1117,7 @@ function Pullquote() {
 ═══════════════════════════════════════════════════════════════════ */
 function Compare() {
   const rows: Array<[string, string, string, string, string]> = [
-    ["Storage Ownership",   "Yours (Shadow Drive)",    "Vendor cloud",   "Self / vendor",  "Self / vendor"],
+    ["Storage Ownership",   "Yours (Irys/Arweave)",    "Vendor cloud",   "Self / vendor",  "Self / vendor"],
     ["Encryption at Rest",  "AES-256-GCM, client-side","Server-side",    "Optional",       "Server-side"],
     ["Cryptographic Proofs","Merkle → Solana Anchor",  "—",              "—",              "—"],
     ["Key Sovereignty",     "Solana keypair-derived",  "Vendor-managed", "Vendor-managed", "Vendor-managed"],
@@ -1228,7 +1228,7 @@ function Pricing() {
       tag: "The core. Yours.",
       items: [
         "Rust crate + local SDK",
-        "Self-hosted Shadow Drive",
+        "Self-hosted with Irys",
         "Direct Anchor writes",
         "Memory Inspector UI",
         "Community support",
@@ -1244,7 +1244,7 @@ function Pricing() {
       tag: "For indie builders & agents.",
       items: [
         "Hosted API + managed cache",
-        "Shadow Drive provisioning",
+        "Irys permanent storage",
         "1M vectors · 100k writes/mo",
         "Dashboard + usage analytics",
         "Email support",
@@ -1300,7 +1300,7 @@ function Pricing() {
               <em style={{ fontStyle: "italic", color: COPPER }}>Open core.</em>
             </>
           }
-          sub="The Rust core is Apache-2.0 forever. The hosted API is metered; you're paying for low-latency cache, Shadow Drive provisioning, and Anchor gas — not for owning your own memory."
+          sub="The Rust core is Apache-2.0 forever. The hosted API is metered; you're paying for low-latency cache, Irys permanent storage, and Anchor gas - not for owning your own memory."
         />
 
         <div
