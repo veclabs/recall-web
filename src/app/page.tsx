@@ -8,17 +8,17 @@
 import { useEffect, useState, type CSSProperties } from "react";
 
 /* ─── Design tokens (mirror globals.css) ─────────────────────────── */
-const BG       = "var(--bg)";
-const BG2      = "var(--bg-2)";
-const PAPER    = "var(--paper)";
-const INK      = "var(--text)";
-const INK_DIM  = "var(--text-muted)";
-const INK_F    = "var(--text-dim)";
-const RULE     = "var(--border)";
-const RULE_HI  = "var(--border-light)";
-const COPPER   = "var(--accent)";
-const MONO     = "var(--font-mono)";
-const SERIF    = "var(--font-serif)";
+const BG = "var(--bg)";
+const BG2 = "var(--bg-2)";
+const PAPER = "var(--paper)";
+const INK = "var(--text)";
+const INK_DIM = "var(--text-muted)";
+const INK_F = "var(--text-dim)";
+const RULE = "var(--border)";
+const RULE_HI = "var(--border-light)";
+const COPPER = "var(--accent)";
+const MONO = "var(--font-mono)";
+const SERIF = "var(--font-serif)";
 
 const SHELL: CSSProperties = {
   maxWidth: "var(--maxw)",
@@ -62,9 +62,17 @@ function Nav() {
           }}
         >
           <BrandMark size={22} />
-          <span style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.06em" }}>VECLABS</span>
+          <span
+            style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.06em" }}
+          >
+            VECLABS
+          </span>
           <span style={{ color: INK_F, margin: "0 2px" }}>//</span>
-          <span style={{ color: INK_DIM, fontSize: 11, letterSpacing: "0.08em" }}>RECALL</span>
+          <span
+            style={{ color: INK_DIM, fontSize: 11, letterSpacing: "0.08em" }}
+          >
+            RECALL
+          </span>
         </a>
 
         <nav
@@ -112,7 +120,13 @@ function Nav() {
   );
 }
 
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+function NavLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
     <a
       href={href}
@@ -131,9 +145,26 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 function BrandMark({ size = 22 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
-      <circle cx={16} cy={16} r={15} fill="none" stroke={COPPER} strokeWidth={1} />
-      <path d="M16 2 L16 30 M2 16 L30 16" stroke="currentColor" strokeWidth={0.6} opacity={0.5} />
-      <path d="M8 8 L24 24 M24 8 L8 24"  stroke="currentColor" strokeWidth={0.6} opacity={0.3} />
+      <circle
+        cx={16}
+        cy={16}
+        r={15}
+        fill="none"
+        stroke={COPPER}
+        strokeWidth={1}
+      />
+      <path
+        d="M16 2 L16 30 M2 16 L30 16"
+        stroke="currentColor"
+        strokeWidth={0.6}
+        opacity={0.5}
+      />
+      <path
+        d="M8 8 L24 24 M24 8 L8 24"
+        stroke="currentColor"
+        strokeWidth={0.6}
+        opacity={0.3}
+      />
       <circle cx={16} cy={16} r={3} fill={COPPER} />
     </svg>
   );
@@ -161,7 +192,14 @@ function SysBar() {
       >
         <span className="sys-col">VEC-01 / LIVE SPEC</span>
         <span className="sys-col">BUILD 0.1.0-α.10</span>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: INK_DIM }}>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            color: INK_DIM,
+          }}
+        >
           <span
             style={{
               width: 6,
@@ -218,7 +256,9 @@ const btnGhost: CSSProperties = {
 ═══════════════════════════════════════════════════════════════════ */
 function Hero() {
   return (
-    <section style={{ padding: "72px 0 88px", borderBottom: `1px solid ${RULE}` }}>
+    <section
+      style={{ padding: "72px 0 88px", borderBottom: `1px solid ${RULE}` }}
+    >
       <div style={SHELL}>
         <div
           className="hero-grid"
@@ -260,10 +300,14 @@ function Hero() {
               }}
             >
               The blockchain isn&rsquo;t just a{" "}
-              <em style={{ fontStyle: "italic", color: COPPER }}>trust</em> layer.
+              <em style={{ fontStyle: "italic", color: COPPER }}>trust</em>{" "}
+              layer.
               <br />
               It&rsquo;s the{" "}
-              <em style={{ fontStyle: "italic", color: COPPER }}>full stack</em> —
+              <em style={{ fontStyle: "italic", color: COPPER }}>
+                full stack
+              </em>{" "}
+              —
               <br />
               storage, verification, and proof.
             </h1>
@@ -278,11 +322,11 @@ function Hero() {
                 margin: "0 0 40px",
               }}
             >
-              <span style={{ color: INK }}>Recall</span> is a Rust-native
-              vector database with cryptographic memory proofs. Every write is
-              client-side encrypted with AES-256-GCM, persisted permanently to Irys (Arweave),
-              and Merkle-rooted to a Solana Anchor program — so your
-              agent&rsquo;s memory is{" "}
+              <span style={{ color: INK }}>Recall</span> is a Rust-native vector
+              database with cryptographic memory proofs. Every write is
+              client-side encrypted with AES-256-GCM, persisted permanently to
+              Irys (Arweave), and Merkle-rooted to a Solana Anchor program — so
+              your agent&rsquo;s memory is{" "}
               <span style={{ color: INK }}>yours</span>, auditable, and
               tamper-evident by construction.
             </p>
@@ -323,19 +367,27 @@ interface LogLine {
 function HeroPanel() {
   const [lines, setLines] = useState<LogLine[]>([
     { t: "+00.000s", hex: "0x7a3f…e8b2", col: "agent/memory", ok: true },
-    { t: "+00.142s", hex: "0xc4d1…a915", col: "agent/tools",  ok: true },
-    { t: "+00.318s", hex: "0x2e8b…f372", col: "user/ctx",     ok: true },
+    { t: "+00.142s", hex: "0xc4d1…a915", col: "agent/tools", ok: true },
+    { t: "+00.318s", hex: "0x2e8b…f372", col: "user/ctx", ok: true },
     { t: "+00.501s", hex: "0x9fa0…d4c6", col: "agent/memory", ok: true },
-    { t: "+00.674s", hex: "0x1b5c…002f", col: "tamper test",  ok: false },
+    { t: "+00.674s", hex: "0x1b5c…002f", col: "tamper test", ok: false },
     { t: "+00.890s", hex: "0xf002…ab83", col: "agent/memory", ok: true },
   ]);
 
   useEffect(() => {
-    const colls = ["agent/memory", "agent/tools", "user/ctx", "agent/plan", "session/state"];
+    const colls = [
+      "agent/memory",
+      "agent/tools",
+      "user/ctx",
+      "agent/plan",
+      "session/state",
+    ];
     const hx = () => Math.floor(Math.random() * 16).toString(16);
     const makeHex = () =>
       "0x" +
-      Array.from({ length: 4 }, () => hx() + hx() + hx() + hx()).join("").slice(0, 4) +
+      Array.from({ length: 4 }, () => hx() + hx() + hx() + hx())
+        .join("")
+        .slice(0, 4) +
       "…" +
       Array.from({ length: 2 }, () => hx() + hx()).join("");
 
@@ -352,7 +404,7 @@ function HeroPanel() {
             ok,
           },
           ...prev,
-        ].slice(0, 6)
+        ].slice(0, 6),
       );
     }, 2200);
     return () => clearInterval(id);
@@ -399,7 +451,8 @@ function HeroPanel() {
               gridTemplateColumns: "70px 1fr auto",
               gap: 12,
               padding: "6px 0",
-              borderBottom: i === lines.length - 1 ? "none" : `1px dashed ${RULE}`,
+              borderBottom:
+                i === lines.length - 1 ? "none" : `1px dashed ${RULE}`,
               alignItems: "center",
               fontFamily: MONO,
               fontSize: 11.5,
@@ -432,21 +485,77 @@ function HeroPanel() {
       </div>
 
       {/* merkle tree */}
-      <div style={{ padding: "22px 14px 14px", borderTop: `1px solid ${RULE}` }}>
-        <svg viewBox="0 0 400 140" fill="none" stroke="currentColor" strokeLinecap="round">
+      <div
+        style={{ padding: "22px 14px 14px", borderTop: `1px solid ${RULE}` }}
+      >
+        <svg
+          viewBox="0 0 400 140"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+        >
           <circle cx={200} cy={16} r={5} fill={COPPER} />
-          <text x={200} y={10} textAnchor="middle" fontFamily="JetBrains Mono" fontSize={8} fill={COPPER}>
+          <text
+            x={200}
+            y={10}
+            textAnchor="middle"
+            fontFamily="JetBrains Mono"
+            fontSize={8}
+            fill={COPPER}
+          >
             ROOT
           </text>
-          <line x1={200} y1={16} x2={100} y2={60} stroke={RULE_HI} strokeWidth={1} />
-          <line x1={200} y1={16} x2={300} y2={60} stroke={RULE_HI} strokeWidth={1} />
+          <line
+            x1={200}
+            y1={16}
+            x2={100}
+            y2={60}
+            stroke={RULE_HI}
+            strokeWidth={1}
+          />
+          <line
+            x1={200}
+            y1={16}
+            x2={300}
+            y2={60}
+            stroke={RULE_HI}
+            strokeWidth={1}
+          />
           <circle cx={100} cy={60} r={4} fill={INK_DIM} />
           <circle cx={300} cy={60} r={4} fill={INK_DIM} />
-          <line x1={100} y1={60} x2={50}  y2={100} stroke={RULE_HI} strokeWidth={1} />
-          <line x1={100} y1={60} x2={150} y2={100} stroke={RULE_HI} strokeWidth={1} />
-          <line x1={300} y1={60} x2={250} y2={100} stroke={RULE_HI} strokeWidth={1} />
-          <line x1={300} y1={60} x2={350} y2={100} stroke={RULE_HI} strokeWidth={1} />
-          <circle cx={50}  cy={100} r={3} fill={INK_F} />
+          <line
+            x1={100}
+            y1={60}
+            x2={50}
+            y2={100}
+            stroke={RULE_HI}
+            strokeWidth={1}
+          />
+          <line
+            x1={100}
+            y1={60}
+            x2={150}
+            y2={100}
+            stroke={RULE_HI}
+            strokeWidth={1}
+          />
+          <line
+            x1={300}
+            y1={60}
+            x2={250}
+            y2={100}
+            stroke={RULE_HI}
+            strokeWidth={1}
+          />
+          <line
+            x1={300}
+            y1={60}
+            x2={350}
+            y2={100}
+            stroke={RULE_HI}
+            strokeWidth={1}
+          />
+          <circle cx={50} cy={100} r={3} fill={INK_F} />
           <circle cx={150} cy={100} r={3} fill={INK_F} />
           <circle cx={250} cy={100} r={3} fill={INK_F} />
           <circle cx={350} cy={100} r={3} fill={INK_F} />
@@ -523,14 +632,25 @@ function Marquee() {
       Rust-Native HNSW &nbsp;·&nbsp;{" "}
       <em style={{ color: COPPER, fontStyle: "normal" }}>AES-256-GCM</em>{" "}
       &nbsp;·&nbsp; Irys · Arweave &nbsp;·&nbsp; Solana Anchor &nbsp;·&nbsp;{" "}
-      <em style={{ color: COPPER, fontStyle: "normal" }}>Merkle-Rooted Writes</em>{" "}
-      &nbsp;·&nbsp; Client-Side Encryption &nbsp;·&nbsp; Open-Source Core &nbsp;·&nbsp;{" "}
-      <em style={{ color: COPPER, fontStyle: "normal" }}>SDKs in TS + Python</em>{" "}
+      <em style={{ color: COPPER, fontStyle: "normal" }}>
+        Merkle-Rooted Writes
+      </em>{" "}
+      &nbsp;·&nbsp; Client-Side Encryption &nbsp;·&nbsp; Open-Source Core
+      &nbsp;·&nbsp;{" "}
+      <em style={{ color: COPPER, fontStyle: "normal" }}>
+        SDKs in TS + Python
+      </em>{" "}
       &nbsp;·&nbsp; Sovereign Memory &nbsp;·&nbsp;&nbsp;&nbsp;
     </span>
   );
   return (
-    <div style={{ borderBottom: `1px solid ${RULE}`, overflow: "hidden", padding: "14px 0" }}>
+    <div
+      style={{
+        borderBottom: `1px solid ${RULE}`,
+        overflow: "hidden",
+        padding: "14px 0",
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -615,7 +735,15 @@ function SectionHead({
           {title}
         </h2>
         {sub ? (
-          <p style={{ fontFamily: MONO, fontSize: 13, color: INK_DIM, maxWidth: "62ch", margin: 0 }}>
+          <p
+            style={{
+              fontFamily: MONO,
+              fontSize: 13,
+              color: INK_DIM,
+              maxWidth: "62ch",
+              margin: 0,
+            }}
+          >
             {sub}
           </p>
         ) : null}
@@ -668,8 +796,8 @@ function Thesis() {
           }}
         >
           Most &ldquo;Web3 memory&rdquo; projects write embeddings onchain —
-          which is slow, expensive, and structurally wrong. Irys handles permanent
-          storage.{" "}
+          which is slow, expensive, and structurally wrong. Irys handles
+          permanent storage.{" "}
           <em style={{ fontStyle: "italic", color: COPPER }}>
             The Anchor program handles proof.
           </em>{" "}
@@ -685,11 +813,23 @@ function Thesis() {
           }}
         >
           {[
-            ["01 · Sovereignty", "Keys are derived from your Solana wallet. If you lose us, you don't lose your memory."],
-            ["02 · Verifiability", "Every write produces a SHA-256 leaf. Every batch produces a root. Every root lives on Solana."],
-            ["03 · Speed, still", "A Rust HNSW index under everything. 4.7ms P99 at 100K vectors. Trust doesn't have to be slow."],
+            [
+              "01 · Sovereignty",
+              "Keys are derived from your Solana wallet. If you lose us, you don't lose your memory.",
+            ],
+            [
+              "02 · Verifiability",
+              "Every write produces a SHA-256 leaf. Every batch produces a root. Every root lives on Solana.",
+            ],
+            [
+              "03 · Speed, still",
+              "A Rust HNSW index under everything. 4.7ms P99 at 100K vectors. Trust doesn't have to be slow.",
+            ],
           ].map(([k, v]) => (
-            <div key={k} style={{ borderTop: `1px solid ${RULE_HI}`, padding: "22px 0 0" }}>
+            <div
+              key={k}
+              style={{ borderTop: `1px solid ${RULE_HI}`, padding: "22px 0 0" }}
+            >
               <h4
                 style={{
                   fontFamily: MONO,
@@ -702,7 +842,15 @@ function Thesis() {
               >
                 {k}
               </h4>
-              <p style={{ fontFamily: SERIF, fontSize: 22, lineHeight: 1.35, color: INK, margin: 0 }}>
+              <p
+                style={{
+                  fontFamily: SERIF,
+                  fontSize: 22,
+                  lineHeight: 1.35,
+                  color: INK,
+                  margin: 0,
+                }}
+              >
                 {v}
               </p>
             </div>
@@ -724,10 +872,30 @@ function Thesis() {
 ═══════════════════════════════════════════════════════════════════ */
 function Architecture() {
   const layers: Array<[string, string, string, string]> = [
-    ["01", "HNSW Graph Index", "Rust-native hierarchical navigable small-world graph. In-memory top, disk-paged tail. Billion-scale queries in single-digit ms.", "Speed"],
-    ["02", "AES-256-GCM · Client-Side", "Vectors and payloads are encrypted before they leave your process, with keys derived from your Solana keypair. We never see plaintext.", "Encryption"],
-    ["03", "Irys · Permanent Storage", "Vectors encrypted and stored permanently on Arweave via Irys — pay once, stored forever. Redis sits in front as a hot read cache — not the database.", "Storage"],
-    ["04", "Solana Anchor Program", "Merkle roots of every write batch are committed to an Anchor program. Anyone, anywhere, can verify memory integrity with a signature.", "Trust"],
+    [
+      "01",
+      "HNSW Graph Index",
+      "Rust-native hierarchical navigable small-world graph. In-memory top, disk-paged tail. Billion-scale queries in single-digit ms.",
+      "Speed",
+    ],
+    [
+      "02",
+      "AES-256-GCM · Client-Side",
+      "Vectors and payloads are encrypted before they leave your process, with keys derived from your Solana keypair. We never see plaintext.",
+      "Encryption",
+    ],
+    [
+      "03",
+      "Irys · Permanent Storage",
+      "Vectors encrypted and stored permanently on Arweave via Irys — pay once, stored forever. Redis sits in front as a hot read cache — not the database.",
+      "Storage",
+    ],
+    [
+      "04",
+      "Solana Anchor Program",
+      "Merkle roots of every write batch are committed to an Anchor program. Anyone, anywhere, can verify memory integrity with a signature.",
+      "Trust",
+    ],
   ];
 
   return (
@@ -740,7 +908,9 @@ function Architecture() {
             <>
               Four layers.
               <br />
-              <em style={{ fontStyle: "italic", color: COPPER }}>One contract.</em>
+              <em style={{ fontStyle: "italic", color: COPPER }}>
+                One contract.
+              </em>
             </>
           }
           sub="Each layer is independently replaceable, independently auditable, and does exactly one thing. Compose them, run them yourself, or use our hosted API."
@@ -759,7 +929,8 @@ function Architecture() {
           <div
             style={{
               border: `1px solid ${RULE_HI}`,
-              background: "linear-gradient(180deg, rgba(244,239,226,0.02), transparent)",
+              background:
+                "linear-gradient(180deg, rgba(244,239,226,0.02), transparent)",
             }}
           >
             {layers.map(([n, t, d, tag], i) => {
@@ -773,11 +944,16 @@ function Architecture() {
                     gap: 20,
                     alignItems: "center",
                     padding: "22px 22px",
-                    borderBottom: i === layers.length - 1 ? "none" : `1px solid ${RULE}`,
+                    borderBottom:
+                      i === layers.length - 1 ? "none" : `1px solid ${RULE}`,
                     transition: "background .25s ease",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(217,107,62,0.04)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "rgba(217,107,62,0.04)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "transparent")
+                  }
                 >
                   <div
                     style={{
@@ -803,7 +979,14 @@ function Architecture() {
                     >
                       {t}
                     </div>
-                    <div style={{ fontFamily: MONO, fontSize: 12, color: INK_DIM, lineHeight: 1.5 }}>
+                    <div
+                      style={{
+                        fontFamily: MONO,
+                        fontSize: 12,
+                        color: INK_DIM,
+                        lineHeight: 1.5,
+                      }}
+                    >
                       {d}
                     </div>
                   </div>
@@ -860,10 +1043,19 @@ function Architecture() {
                 doing it wrong. Chain blockspace is the most expensive storage
                 on earth.
               </p>
-              <div style={{ fontFamily: MONO, fontSize: 11.5, color: INK_DIM, lineHeight: 1.6 }}>
+              <div
+                style={{
+                  fontFamily: MONO,
+                  fontSize: 11.5,
+                  color: INK_DIM,
+                  lineHeight: 1.6,
+                }}
+              >
                 The chain&rsquo;s job is to be the final authority on{" "}
-                <em style={{ color: COPPER, fontStyle: "normal" }}>what happened</em>,
-                not to hold the thing that happened.
+                <em style={{ color: COPPER, fontStyle: "normal" }}>
+                  what happened
+                </em>
+                , not to hold the thing that happened.
               </div>
             </div>
 
@@ -885,7 +1077,8 @@ function Architecture() {
                     gridTemplateColumns: "1fr auto",
                     gap: 20,
                     padding: "12px 16px",
-                    borderBottom: i === arr.length - 1 ? "none" : `1px solid ${RULE}`,
+                    borderBottom:
+                      i === arr.length - 1 ? "none" : `1px solid ${RULE}`,
                     fontSize: 11.5,
                   }}
                 >
@@ -932,17 +1125,30 @@ function CodeBlock({
 }) {
   const color = (t: Tok[0]) => {
     switch (t) {
-      case "k":   return "#B4C7FF";
-      case "s":   return COPPER;
-      case "c":   return INK_F;
-      case "num": return "#FFC56E";
-      case "f":   return INK;
-      case "p":   return INK_DIM;
-      default:    return INK;
+      case "k":
+        return "#B4C7FF";
+      case "s":
+        return COPPER;
+      case "c":
+        return INK_F;
+      case "num":
+        return "#FFC56E";
+      case "f":
+        return INK;
+      case "p":
+        return INK_DIM;
+      default:
+        return INK;
     }
   };
   return (
-    <div style={{ border: `1px solid ${RULE_HI}`, background: BG2, overflow: "hidden" }}>
+    <div
+      style={{
+        border: `1px solid ${RULE_HI}`,
+        background: BG2,
+        overflow: "hidden",
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -1004,7 +1210,7 @@ function SdkSection() {
               <em style={{ fontStyle: "italic", color: COPPER }}>verify</em>.
             </>
           }
-sub="Install, configure with your wallet, write. Irys permanent storage and Anchor proofs happen in the background."
+          sub="Install, configure with your wallet, write. Irys permanent storage and Anchor proofs happen in the background."
         />
 
         <div
@@ -1016,21 +1222,69 @@ sub="Install, configure with your wallet, write. Irys permanent storage and Anch
             lang="@veclabs/solvec"
             lines={[
               [["c", "// npm i @veclabs/solvec"]],
-              [["k", "import"], ["n", " { Recall } "], ["k", "from"], ["s", ' "@veclabs/solvec"'], ["p", ";"]],
+              [
+                ["k", "import"],
+                ["n", " { Recall } "],
+                ["k", "from"],
+                ["s", ' "@veclabs/solvec"'],
+                ["p", ";"],
+              ],
               [["n", ""]],
-              [["k", "const"], ["n", " recall "], ["p", "="], ["k", " new"], ["f", " Recall"], ["p", "({"]],
+              [
+                ["k", "const"],
+                ["n", " recall "],
+                ["p", "="],
+                ["k", " new"],
+                ["f", " Recall"],
+                ["p", "({"],
+              ],
               [["n", "  apiKey: process.env.VECLABS_KEY,"]],
               [["n", "  wallet: keypair,"]],
-              [["n", "  shadowDrive: "], ["num", "true"], ["p", ","]],
+              [
+                ["n", "  shadowDrive: "],
+                ["num", "true"],
+                ["p", ","],
+              ],
               [["p", "});"]],
               [["n", ""]],
-              [["k", "await"], ["n", " recall."], ["f", "upsert"], ["p", "("], ["s", "\"agent-001\""], ["p", ", [{"]],
-              [["n", "  id: "], ["s", "\"mem_9fa0\""], ["p", ","]],
-              [["n", "  vector: embedding,     "], ["c", "// 1536-dim"]],
-              [["n", "  payload: { text, ts: "], ["f", "Date"], ["p", "."], ["f", "now"], ["p", "()"], ["n", " },"]],
+              [
+                ["k", "await"],
+                ["n", " recall."],
+                ["f", "upsert"],
+                ["p", "("],
+                ["s", '"agent-001"'],
+                ["p", ", [{"],
+              ],
+              [
+                ["n", "  id: "],
+                ["s", '"mem_9fa0"'],
+                ["p", ","],
+              ],
+              [
+                ["n", "  vector: embedding,     "],
+                ["c", "// 1536-dim"],
+              ],
+              [
+                ["n", "  payload: { text, ts: "],
+                ["f", "Date"],
+                ["p", "."],
+                ["f", "now"],
+                ["p", "()"],
+                ["n", " },"],
+              ],
               [["p", "}]);"]],
               [["n", ""]],
-              [["k", "const"], ["n", " proof "], ["p", "="], ["k", " await"], ["n", " recall."], ["f", "verify"], ["p", "("], ["s", "\"mem_9fa0\""], ["p", ");"]],
+              [
+                ["k", "const"],
+                ["n", " proof "],
+                ["p", "="],
+                ["k", " await"],
+                ["n", " recall."],
+                ["f", "verify"],
+                ["p", "("],
+                ["s", '"mem_9fa0"'],
+                ["p", ");"],
+              ],
               [["c", "// → { root, slot, sig, verified: true }"]],
             ]}
           />
@@ -1040,21 +1294,85 @@ sub="Install, configure with your wallet, write. Irys permanent storage and Anch
             lang="solvec"
             lines={[
               [["c", "# pip install solvec"]],
-              [["k", "from"], ["n", " solvec "], ["k", "import"], ["n", " Recall"]],
+              [
+                ["k", "from"],
+                ["n", " solvec "],
+                ["k", "import"],
+                ["n", " Recall"],
+              ],
               [["n", ""]],
-              [["n", "recall "], ["p", "="], ["f", " Recall"], ["p", "("]],
-              [["n", "    api_key"], ["p", "="], ["n", "os.environ["], ["s", "\"VECLABS_KEY\""], ["n", "],"]],
-              [["n", "    wallet"], ["p", "="], ["n", "keypair,"]],
-              [["n", "    shadow_drive"], ["p", "="], ["num", "True"], ["n", ","]],
+              [
+                ["n", "recall "],
+                ["p", "="],
+                ["f", " Recall"],
+                ["p", "("],
+              ],
+              [
+                ["n", "    api_key"],
+                ["p", "="],
+                ["n", "os.environ["],
+                ["s", '"VECLABS_KEY"'],
+                ["n", "],"],
+              ],
+              [
+                ["n", "    wallet"],
+                ["p", "="],
+                ["n", "keypair,"],
+              ],
+              [
+                ["n", "    shadow_drive"],
+                ["p", "="],
+                ["num", "True"],
+                ["n", ","],
+              ],
               [["p", ")"]],
               [["n", ""]],
-              [["n", "recall."], ["f", "upsert"], ["p", "("], ["s", "\"agent-001\""], ["p", ", [{"]],
-              [["n", "    "], ["s", "\"id\""], ["p", ":"], ["s", " \"mem_9fa0\""], ["p", ","]],
-              [["n", "    "], ["s", "\"vector\""], ["p", ":"], ["n", " embedding,     "], ["c", "# 1536-dim"]],
-              [["n", "    "], ["s", "\"payload\""], ["p", ":"], ["n", " {"], ["s", "\"text\""], ["p", ":"], ["n", " text, "], ["s", "\"ts\""], ["p", ":"], ["n", " time."], ["f", "time"], ["p", "()},"]],
+              [
+                ["n", "recall."],
+                ["f", "upsert"],
+                ["p", "("],
+                ["s", '"agent-001"'],
+                ["p", ", [{"],
+              ],
+              [
+                ["n", "    "],
+                ["s", '"id"'],
+                ["p", ":"],
+                ["s", ' "mem_9fa0"'],
+                ["p", ","],
+              ],
+              [
+                ["n", "    "],
+                ["s", '"vector"'],
+                ["p", ":"],
+                ["n", " embedding,     "],
+                ["c", "# 1536-dim"],
+              ],
+              [
+                ["n", "    "],
+                ["s", '"payload"'],
+                ["p", ":"],
+                ["n", " {"],
+                ["s", '"text"'],
+                ["p", ":"],
+                ["n", " text, "],
+                ["s", '"ts"'],
+                ["p", ":"],
+                ["n", " time."],
+                ["f", "time"],
+                ["p", "()},"],
+              ],
               [["p", "}])"]],
               [["n", ""]],
-              [["n", "proof "], ["p", "="], ["n", " recall."], ["f", "verify"], ["p", "("], ["s", "\"mem_9fa0\""], ["p", ")"]],
+              [
+                ["n", "proof "],
+                ["p", "="],
+                ["n", " recall."],
+                ["f", "verify"],
+                ["p", "("],
+                ["s", '"mem_9fa0"'],
+                ["p", ")"],
+              ],
               [["c", "# → {root, slot, sig, verified: True}"]],
             ]}
           />
@@ -1075,7 +1393,13 @@ sub="Install, configure with your wallet, write. Irys permanent storage and Anch
 ═══════════════════════════════════════════════════════════════════ */
 function Pullquote() {
   return (
-    <section style={{ padding: "120px 0", borderBottom: `1px solid ${RULE}`, textAlign: "center" }}>
+    <section
+      style={{
+        padding: "120px 0",
+        borderBottom: `1px solid ${RULE}`,
+        textAlign: "center",
+      }}
+    >
       <div style={SHELL}>
         <p
           style={{
@@ -1090,8 +1414,8 @@ function Pullquote() {
           }}
         >
           If your agent can&rsquo;t{" "}
-          <em style={{ color: COPPER, fontStyle: "italic" }}>prove</em>{" "}
-          what it remembered,
+          <em style={{ color: COPPER, fontStyle: "italic" }}>prove</em> what it
+          remembered,
           <br />
           it didn&rsquo;t really remember at all.
         </p>
@@ -1117,13 +1441,31 @@ function Pullquote() {
 ═══════════════════════════════════════════════════════════════════ */
 function Compare() {
   const rows: Array<[string, string, string, string, string]> = [
-    ["Storage Ownership",   "Yours (Irys/Arweave)",    "Vendor cloud",   "Self / vendor",  "Self / vendor"],
-    ["Encryption at Rest",  "AES-256-GCM, client-side","Server-side",    "Optional",       "Server-side"],
-    ["Cryptographic Proofs","Merkle → Solana Anchor",  "—",              "—",              "—"],
-    ["Key Sovereignty",     "Solana keypair-derived",  "Vendor-managed", "Vendor-managed", "Vendor-managed"],
-    ["Query Latency (P99)", "~4.7 ms",                 "~30 ms",         "~18 ms",         "~48 ms"],
-    ["Core Open Source",    "Apache-2.0 (Rust)",       "Closed",         "Apache-2.0",     "BSD"],
-    ["Tamper-Evident Audit","Built-in",                "—",              "—",              "—"],
+    [
+      "Storage Ownership",
+      "Yours (Irys/Arweave)",
+      "Vendor cloud",
+      "Self / vendor",
+      "Self / vendor",
+    ],
+    [
+      "Encryption at Rest",
+      "AES-256-GCM, client-side",
+      "Server-side",
+      "Optional",
+      "Server-side",
+    ],
+    ["Cryptographic Proofs", "Merkle → Solana Anchor", "—", "—", "—"],
+    [
+      "Key Sovereignty",
+      "Solana keypair-derived",
+      "Vendor-managed",
+      "Vendor-managed",
+      "Vendor-managed",
+    ],
+    ["Query Latency (P99)", "~4.7 ms", "~30 ms", "~18 ms", "~48 ms"],
+    ["Core Open Source", "Apache-2.0 (Rust)", "Closed", "Apache-2.0", "BSD"],
+    ["Tamper-Evident Audit", "Built-in", "—", "—", "—"],
   ];
 
   return (
@@ -1136,7 +1478,9 @@ function Compare() {
             <>
               The row
               <br />
-              <em style={{ fontStyle: "italic", color: COPPER }}>nobody else has.</em>
+              <em style={{ fontStyle: "italic", color: COPPER }}>
+                nobody else has.
+              </em>
             </>
           }
           sub="Vector search is table stakes in 2026. The question isn't 'how fast.' It's who owns the index."
@@ -1153,24 +1497,26 @@ function Compare() {
           >
             <thead>
               <tr style={{ background: "rgba(244, 239, 226, 0.02)" }}>
-                {["", "Recall", "Pinecone", "Chroma", "Weaviate"].map((h, i) => (
-                  <th
-                    key={h || i}
-                    style={{
-                      padding: "16px 18px",
-                      textAlign: "left",
-                      borderBottom: `1px solid ${RULE}`,
-                      fontFamily: MONO,
-                      fontSize: 10.5,
-                      letterSpacing: "0.16em",
-                      textTransform: "uppercase",
-                      color: i === 1 ? COPPER : INK_F,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {h}
-                  </th>
-                ))}
+                {["", "Recall", "Pinecone", "Chroma", "Weaviate"].map(
+                  (h, i) => (
+                    <th
+                      key={h || i}
+                      style={{
+                        padding: "16px 18px",
+                        textAlign: "left",
+                        borderBottom: `1px solid ${RULE}`,
+                        fontFamily: MONO,
+                        fontSize: 10.5,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        color: i === 1 ? COPPER : INK_F,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ),
+                )}
               </tr>
             </thead>
             <tbody>
@@ -1180,7 +1526,8 @@ function Compare() {
                     style={{
                       padding: "16px 18px",
                       textAlign: "left",
-                      borderBottom: ri === rows.length - 1 ? "none" : `1px solid ${RULE}`,
+                      borderBottom:
+                        ri === rows.length - 1 ? "none" : `1px solid ${RULE}`,
                       fontFamily: MONO,
                       fontWeight: 400,
                       color: INK_DIM,
@@ -1198,7 +1545,8 @@ function Compare() {
                       key={ci}
                       style={{
                         padding: "16px 18px",
-                        borderBottom: ri === rows.length - 1 ? "none" : `1px solid ${RULE}`,
+                        borderBottom:
+                          ri === rows.length - 1 ? "none" : `1px solid ${RULE}`,
                         color: ci === 0 ? COPPER : v === "—" ? INK_F : INK,
                         fontWeight: ci === 0 ? 500 : 400,
                       }}
@@ -1222,30 +1570,32 @@ function Compare() {
 function Pricing() {
   const tiers = [
     {
-      name: "Open / Self-Host",
+      name: "Free",
       price: "$0",
       unit: "/forever",
-      tag: "The core. Yours.",
+      tag: "Start building.",
       items: [
-        "Rust crate + local SDK",
-        "Self-hosted with Irys",
-        "Direct Anchor writes",
-        "Memory Inspector UI",
+        "5K vectors · 1K writes/mo",
+        "10K queries/mo",
+        "Redis-backed search",
+        "2 collections · 1 API key",
         "Community support",
       ],
-      cta: "Clone on GitHub ↗",
-      href: "https://github.com/veclabs/veclabs",
+      cta: "Get started →",
+      href: "https://app.veclabs.xyz/register",
       featured: false,
     },
     {
-      name: "Pro · Hosted",
+      name: "Pro",
       price: "$25",
       unit: "/mo",
       tag: "For indie builders & agents.",
       items: [
-        "Hosted API + managed cache",
+        "500K vectors · 50K writes/mo",
+        "500K queries/mo",
         "Irys permanent storage",
-        "1M vectors · 100k writes/mo",
+        "Merkle root → Solana on every write",
+        "25 collections · 5 API keys",
         "Dashboard + usage analytics",
         "Email support",
       ],
@@ -1259,10 +1609,13 @@ function Pricing() {
       unit: "/mo",
       tag: "Production agents.",
       items: [
-        "10M vectors · 2M writes/mo",
+        "5M vectors · 500K writes/mo",
+        "5M queries/mo",
+        "Irys permanent storage",
+        "Merkle root → Solana on every write",
         "Team keys + RBAC",
+        "Unlimited collections",
         "Priority queue + SLA",
-        "Verified proof export",
         "Slack-connected support",
       ],
       cta: "Upgrade →",
@@ -1275,6 +1628,7 @@ function Pricing() {
       unit: "",
       tag: "Sovereign deployments.",
       items: [
+        "Unlimited vectors + writes",
         "On-prem or dedicated cluster",
         "Custom Anchor program",
         "Dedicated solutions engineer",
@@ -1300,7 +1654,7 @@ function Pricing() {
               <em style={{ fontStyle: "italic", color: COPPER }}>Open core.</em>
             </>
           }
-          sub="The Rust core is Apache-2.0 forever. The hosted API is metered; you're paying for low-latency cache, Irys permanent storage, and Anchor gas - not for owning your own memory."
+          sub="Free tier gets you fast Redis-backed search. Pro and above gets permanent Irys storage and cryptographic Merkle proofs on Solana - you're paying for sovereignty, not just storage."
         />
 
         <div
@@ -1316,11 +1670,14 @@ function Pricing() {
               key={t.name}
               style={{
                 padding: "32px 24px",
-                borderRight: i === tiers.length - 1 ? "none" : `1px solid ${RULE}`,
+                borderRight:
+                  i === tiers.length - 1 ? "none" : `1px solid ${RULE}`,
                 display: "flex",
                 flexDirection: "column",
                 minHeight: 420,
-                background: t.featured ? "rgba(217, 107, 62, 0.05)" : "transparent",
+                background: t.featured
+                  ? "rgba(217, 107, 62, 0.05)"
+                  : "transparent",
               }}
             >
               <div
@@ -1359,7 +1716,14 @@ function Pricing() {
                   </span>
                 ) : null}
               </div>
-              <div style={{ fontFamily: MONO, fontSize: 11, color: INK_DIM, marginBottom: 24 }}>
+              <div
+                style={{
+                  fontFamily: MONO,
+                  fontSize: 11,
+                  color: INK_DIM,
+                  marginBottom: 24,
+                }}
+              >
                 {t.tag}
               </div>
               <ul
@@ -1392,7 +1756,9 @@ function Pricing() {
               <a
                 href={t.href}
                 target={t.href.startsWith("http") ? "_blank" : undefined}
-                rel={t.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                rel={
+                  t.href.startsWith("http") ? "noopener noreferrer" : undefined
+                }
                 style={{
                   ...btnBase,
                   width: "100%",
@@ -1426,7 +1792,10 @@ function Pricing() {
 ═══════════════════════════════════════════════════════════════════ */
 function CTA() {
   return (
-    <section id="start" style={{ padding: "100px 0", borderBottom: `1px solid ${RULE}` }}>
+    <section
+      id="start"
+      style={{ padding: "100px 0", borderBottom: `1px solid ${RULE}` }}
+    >
       <div style={SHELL}>
         <div
           className="cta-grid"
@@ -1449,7 +1818,9 @@ function CTA() {
           >
             Give your agent a
             <br />
-            <em style={{ fontStyle: "italic", color: COPPER }}>memory it owns.</em>
+            <em style={{ fontStyle: "italic", color: COPPER }}>
+              memory it owns.
+            </em>
           </h2>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <a
@@ -1460,7 +1831,12 @@ function CTA() {
             >
               Get API key →
             </a>
-            <a href="https://docs.veclabs.xyz" target="_blank" rel="noopener noreferrer" style={btnGhost}>
+            <a
+              href="https://docs.veclabs.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={btnGhost}
+            >
               Read the docs ↗
             </a>
           </div>
@@ -1499,24 +1875,33 @@ function CTA() {
 ═══════════════════════════════════════════════════════════════════ */
 function Footer() {
   const columns: Array<[string, Array<[string, string]>]> = [
-    ["Product", [
-      ["Architecture",      "#arch"],
-      ["SDKs",              "#sdk"],
-      ["Memory Inspector",  "https://demo.veclabs.xyz"],
-      ["Changelog",         "https://docs.veclabs.xyz"],
-    ]],
-    ["Developers", [
-      ["Docs",            "https://docs.veclabs.xyz"],
-      ["API Reference",   "https://docs.veclabs.xyz"],
-      ["Anchor Program",  "https://explorer.solana.com"],
-      ["GitHub",          "https://github.com/veclabs/veclabs"],
-    ]],
-    ["Company", [
-      ["Thesis",               "#thesis"],
-      ["Blog",                 "/blog"],
-      ["X / @VecLabs",         "https://twitter.com/veclabss"],
-      ["veclabs@outlook.com",  "mailto:veclabs@outlook.com"],
-    ]],
+    [
+      "Product",
+      [
+        ["Architecture", "#arch"],
+        ["SDKs", "#sdk"],
+        ["Memory Inspector", "https://demo.veclabs.xyz"],
+        ["Changelog", "https://docs.veclabs.xyz"],
+      ],
+    ],
+    [
+      "Developers",
+      [
+        ["Docs", "https://docs.veclabs.xyz"],
+        ["API Reference", "https://docs.veclabs.xyz"],
+        ["Anchor Program", "https://explorer.solana.com"],
+        ["GitHub", "https://github.com/veclabs/veclabs"],
+      ],
+    ],
+    [
+      "Company",
+      [
+        ["Thesis", "#thesis"],
+        ["Blog", "/blog"],
+        ["X / @VecLabs", "https://twitter.com/veclabss"],
+        ["veclabs@outlook.com", "mailto:veclabs@outlook.com"],
+      ],
+    ],
   ];
 
   return (
@@ -1543,13 +1928,28 @@ function Footer() {
               }}
             >
               <BrandMark size={22} />
-              <span style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.06em" }}>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 500,
+                  letterSpacing: "0.06em",
+                }}
+              >
                 VECLABS
               </span>
             </div>
-            <p style={{ fontFamily: SERIF, fontSize: 20, lineHeight: 1.3, color: INK, margin: "18px 0 0" }}>
+            <p
+              style={{
+                fontFamily: SERIF,
+                fontSize: 20,
+                lineHeight: 1.3,
+                color: INK,
+                margin: "18px 0 0",
+              }}
+            >
               Building the cryptographic substrate for a trillion agents that{" "}
-              <em style={{ fontStyle: "italic", color: COPPER }}>actually</em> remember.
+              <em style={{ fontStyle: "italic", color: COPPER }}>actually</em>{" "}
+              remember.
             </p>
           </div>
 
@@ -1570,14 +1970,25 @@ function Footer() {
               </h6>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {items.map(([label, href]) => (
-                  <li key={label} style={{ padding: "6px 0", fontSize: 12, fontFamily: MONO }}>
+                  <li
+                    key={label}
+                    style={{ padding: "6px 0", fontSize: 12, fontFamily: MONO }}
+                  >
                     <a
                       href={href}
                       target={href.startsWith("http") ? "_blank" : undefined}
-                      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      rel={
+                        href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       style={{ color: INK_DIM }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = COPPER)}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = INK_DIM)}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.color = COPPER)
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.color = INK_DIM)
+                      }
                     >
                       {label}
                     </a>
