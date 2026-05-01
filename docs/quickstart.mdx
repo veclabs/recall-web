@@ -105,3 +105,45 @@ The verify call fetches the on-chain Merkle root from Solana and computes it loc
 | Merkle root → Solana   | ❌   | ✅           |
 
 Free tier vectors live in Redis cache. Pro tier vectors are stored permanently on Arweave via Irys and anchored to Solana on every write.
+
+## LangChain integration
+
+<CodeGroup>
+```bash TypeScript
+npm install @veclabs/solvec @langchain/core
+```
+
+```bash Python
+pip install solvec --pre langchain-core
+```
+</CodeGroup>
+
+<CodeGroup>
+```typescript TypeScript
+import { RecallVectorStore } from '@veclabs/solvec/langchain';
+import { OpenAIEmbeddings } from '@langchain/openai';
+
+const store = await RecallVectorStore.fromTexts(
+  ["User prefers dark mode", "Meeting at 3pm"],
+  [{ source: "chat" }, { source: "calendar" }],
+  new OpenAIEmbeddings(),
+  { apiKey: process.env.RECALL_API_KEY, collection: "langchain-memory" }
+);
+
+const docs = await store.similaritySearch("user preferences", 3);
+```
+
+```python Python
+from solvec.langchain import RecallVectorStore
+from langchain_openai import OpenAIEmbeddings
+
+store = RecallVectorStore(
+    api_key=os.environ["RECALL_API_KEY"],
+    collection="langchain-memory",
+    embeddings=OpenAIEmbeddings(),
+)
+
+store.add_texts(["User prefers dark mode", "Meeting at 3pm"])
+docs = store.similarity_search("user preferences", k=3)
+```
+</CodeGroup>
