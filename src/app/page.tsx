@@ -299,19 +299,28 @@ function Hero() {
                 margin: "0 0 32px",
               }}
             >
-              The blockchain isn&rsquo;t just a{" "}
-              <em style={{ fontStyle: "italic", color: COPPER }}>trust</em>{" "}
-              layer.
+              Your agent remembered.
               <br />
-              It&rsquo;s the{" "}
               <em style={{ fontStyle: "italic", color: COPPER }}>
-                full stack
-              </em>{" "}
-              —
-              <br />
-              storage, verification, and proof.
+                We can prove it.
+              </em>
             </h1>
-
+            <p
+              style={{
+                fontFamily: MONO,
+                fontSize: 14,
+                lineHeight: 1.65,
+                color: INK_DIM,
+                maxWidth: "58ch",
+                margin: "0 0 40px",
+              }}
+            >
+              Sub-5ms vector search. Client-side encryption. Every write
+              produces a cryptographic fingerprint —{" "}
+              <span style={{ color: INK }}>
+                reconstruct exactly what your agent knew at any point in time.
+              </span>
+            </p>
             <p
               style={{
                 fontFamily: MONO,
