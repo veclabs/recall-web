@@ -6,7 +6,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 import { useEffect, useState, type CSSProperties } from "react";
-
+import PipelineDemo from "@/components/PipelineDemo";
 /* ─── Design tokens (mirror globals.css) ─────────────────────────── */
 const BG = "var(--bg)";
 const BG2 = "var(--bg-2)";
@@ -2031,6 +2031,7 @@ export default function Page() {
       <Hero />
       <Marquee />
       <Thesis />
+      <PipelineDemo />
       <Architecture />
       <SdkSection />
       <Pullquote />
