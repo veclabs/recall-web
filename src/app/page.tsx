@@ -1210,7 +1210,7 @@ function SdkSection() {
               <em style={{ fontStyle: "italic", color: COPPER }}>verify</em>.
             </>
           }
-          sub="Install, configure with your wallet, write. Irys permanent storage and Anchor proofs happen in the background."
+          sub="Install, drop in your API key, write. Irys permanent storage and Merkle proofs happen automatically in the background."
         />
 
         <div
