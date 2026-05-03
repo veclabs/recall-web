@@ -18,7 +18,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: "VecLabs — Cryptographic Memory for AI Agents",
   description:
-    "Recall is a Rust-native vector database with cryptographic memory proofs. Client-side encryption, Merkle-rooted on Solana, stored on Shadow Drive.",
+    "Recall is a Rust-native vector database with cryptographic memory proofs. Client-side encryption, Merkle-rooted on Solana, stored permanently on Arweave via Irys.",
 };
 
 export default function RootLayout({
